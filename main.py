@@ -19,8 +19,16 @@ def add_datas(datatxt):
     return flask.jsonify(NewData+" added"),200
 
 @app.route("/books",methods=["put"])
-def update_data(Data):
-    check = next((newdata for newdata in Data[id]==Data.id),None)
+def update_data(Dataa):
+    check = next((newdata for newdata in Data[id]==Dataa.id),None)
     if check!=None:
+        Data.append(Dataa)
+        return flask.jsonify(Data)
+    return None
 
+@app.route("/books",methods=["delete"])
+def delete_data(data_id):
+    data_to_delete= ([data for data in Data if Data[id]==data_id],None)
+    if data_to_delete!=None:
+        Data.remove(data_to_delete)
 app.run(debug=True,port=2248)
